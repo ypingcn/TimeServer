@@ -1,0 +1,18 @@
+#TimeServerPlus
+
+基于 epoll 的时间服务器升级版（功能模块化）
+
+想法来自 [ypingcn/TimeServer](https://github.com/ypingcn/TimeServer)
+
+#编译
+
+cd src
+
+make
+
+#运行
+
+./main TimeServerPlus.config
+
+( Usage: ./main <config_path> )
+
