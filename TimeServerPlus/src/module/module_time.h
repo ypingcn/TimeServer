@@ -4,11 +4,11 @@
 #include "../type.h"
 
 #include <string>
-#include <vector>
 #include <unistd.h>
+#include <vector>
 
-void tsp_module_time_init(std::vector<tsp_module_t>& v);
+void tsp_module_time_init(std::vector<tsp_module_t> &v);
 
-void * tsp_module_time_localtime(void * sockfd,void * request);
+void *tsp_module_time_localtime(void *sockfd, void *request);
 
 #endif

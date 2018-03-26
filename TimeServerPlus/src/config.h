@@ -5,10 +5,10 @@
 #include <string>
 
 #include <fstream>
-#include <sstream>
 #include <iostream>
+#include <sstream>
 
 int tsp_config_parse(const std::string path);
-int tsp_config_get(const std::string key,std::string &value);
+int tsp_config_get(const std::string key, std::string &value);
 
 #endif

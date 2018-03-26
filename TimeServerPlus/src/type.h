@@ -5,10 +5,9 @@
 #include <regex>
 #include <string>
 
-typedef std::map<std::string,std::string> tsp_httpheader_t;
-typedef std::map<std::string,std::string> tsp_url_arg_t;
-typedef struct __tsp_request_t
-{
+typedef std::map<std::string, std::string> tsp_httpheader_t;
+typedef std::map<std::string, std::string> tsp_url_arg_t;
+typedef struct __tsp_request_t {
   std::string method;
   std::string url;
   std::string version;
@@ -17,17 +16,15 @@ typedef struct __tsp_request_t
   std::string body;
 } tsp_request_t;
 
-typedef struct __tsp_module_pattern_t
-{
+typedef struct __tsp_module_pattern_t {
   std::regex url_pattern;
   std::string method;
   std::string version;
 } tsp_module_pattern_t;
 
-typedef void * (*tsp_module_callback)(void *,void *);
+typedef void *(*tsp_module_callback)(void *, void *);
 
-typedef struct __tsp_module_t
-{
+typedef struct __tsp_module_t {
   tsp_module_pattern_t pattern;
   tsp_module_callback callback;
   int priority;

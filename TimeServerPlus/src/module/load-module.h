@@ -13,6 +13,4 @@ void tsp_module_init();
 std::vector<tsp_module_t> tsp_module_get();
 void tsp_module_sort_by_priority();
 
-
-
 #endif
