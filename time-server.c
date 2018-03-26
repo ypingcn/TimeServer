@@ -70,7 +70,7 @@ void service(int sockfd)
 {
   char buf[1024];
 
-  sprintf(buf, "HTTP/1.0 403 Forbidden\r\n");
+  sprintf(buf, "HTTP/1.0 200 OK\r\n");
   send(sockfd,buf,strlen(buf),0);
   sprintf(buf, SERVER_STRING);
   send(sockfd,buf,strlen(buf),0);
