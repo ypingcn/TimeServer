@@ -10,6 +10,8 @@
 
 #define SERVER_STRING "Server: time-server/0.1.170924(c)\r\n"
 
+int SHOW_HEADER_DETAIL = 0;
+
 void error_exit(const char *s) {
   perror(s);
   exit(1);
@@ -35,6 +37,8 @@ int init(uint16_t port) {
 
   if (listen(httpd, 1000) < 0)
     error_exit("listen failed\n");
+
+  printf("listen port %d success!!\n", port);
 
   return httpd;
 }
@@ -97,23 +101,34 @@ void refuse_to_service(int sockfd) {
 }
 
 void accept_request(void *arg) {
+
   int client_socket = (intptr_t)arg;
-  printf("%d\n", client_socket);
+
   char headers[512];
-  char method[512];
+  char method[20], path[512];
   get_socket_line(client_socket, headers, sizeof(headers));
 
   int i = 0;
-  while (!isspace(headers[i]) && i < sizeof(method) - 1) {
+  while (!isspace(headers[i]) && (unsigned)(i) < sizeof(method) - 1) {
     method[i] = headers[i];
     i++;
   }
   method[i] = '\0';
+  i++;
+  while (!isspace(headers[i]) && (unsigned)(i) < sizeof(path) - 1) {
+    path[i - strlen(method) - 1] = headers[i];
+    i++;
+  }
+  path[i] = '\0';
+
+  printf("sockfd %d handling...\n", client_socket);
+  printf("method is '%s' and path is '%s'\n", method, path);
 
   char buf[255];
   int len = get_socket_line(client_socket, buf, sizeof(buf));
   while (len > 0 && strcmp(buf, "\n")) {
-    printf("(%d)##: %s", client_socket, buf);
+    if (SHOW_HEADER_DETAIL)
+      printf("(%d)##: %s", client_socket, buf);
     len = get_socket_line(client_socket, buf, sizeof(buf));
   }
 
