@@ -1,6 +1,7 @@
 #ifndef TSP_UTILITY
 #define TSP_UTILITY
 
+#include <cstdarg>
 #include <fcntl.h>
 #include <string>
 #include <sys/stat.h>
@@ -21,7 +22,7 @@ void tsp_util_free(void *p);
 
 class TSPUtilTime {
 public:
-  static int tostring(time_t t, string &res);
+  static int tostring(time_t t, string &res, const char *fmt = "%F %X");
   static int now(string &res);
 };
 

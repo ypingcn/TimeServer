@@ -34,16 +34,17 @@ void *tsp_util_malloc(size_t size) {
 
 void tsp_util_free(void *p) { free(p); }
 
-int TSPUtilTime::tostring(time_t t, string &res) {
+int TSPUtilTime::tostring(time_t t, string &res, const char *fmt) {
   struct tm *time_tm = localtime(&t);
   char buff[128];
-  strftime(buff, sizeof(buff), "%F %X", time_tm);
+  strftime(buff, sizeof(buff), fmt, time_tm);
   res = string(buff);
+  return 0;
 }
 
 int TSPUtilTime::now(string &res) {
   time_t t = time(NULL);
-  return tostring(t, res);
+  return tostring(t, res, "%F %X");
 }
 
 int TSPUtilFile::exist(const char *path) {
