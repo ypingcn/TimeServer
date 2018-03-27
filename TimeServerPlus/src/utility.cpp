@@ -41,6 +41,11 @@ int TSPUtilTime::tostring(time_t t, string &res) {
   res = string(buff);
 }
 
+int TSPUtilTime::now(string &res) {
+  time_t t = time(NULL);
+  return tostring(t, res);
+}
+
 int TSPUtilFile::exist(const char *path) {
   int res = open(path, O_RDONLY | O_NOFOLLOW), dir = open(path, O_DIRECTORY);
   if (dir != -1)

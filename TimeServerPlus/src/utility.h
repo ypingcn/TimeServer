@@ -22,6 +22,7 @@ void tsp_util_free(void *p);
 class TSPUtilTime {
 public:
   static int tostring(time_t t, string &res);
+  static int now(string &res);
 };
 
 class TSPUtilFile {
