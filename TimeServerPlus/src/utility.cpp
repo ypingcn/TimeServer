@@ -35,9 +35,9 @@ void *tsp_util_malloc(size_t size) {
 void tsp_util_free(void *p) { free(p); }
 
 int TSPUtilTime::tostring(time_t t, string &res) {
-  struct tm *mtime_tm = localtime(&t);
+  struct tm *time_tm = localtime(&t);
   char buff[128];
-  strftime(buff, sizeof(buff), "%F %X", mtime_tm);
+  strftime(buff, sizeof(buff), "%F %X", time_tm);
   res = string(buff);
 }
 
