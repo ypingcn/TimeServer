@@ -43,9 +43,10 @@ void *tsp_module_basic_get(void *sockfd, void *request) {
     if (tsp_config_get("INDEX", index) != -1)
       file.append(index);
 
-  if (tsp_util_file_exist(file.data()) == 0) {
+  if (TSPUtilFile::exist(file.data()) == 0) {
     int fd = open(file.data(), O_RDONLY);
-    off_t size = tsp_util_file_size(file.data());
+    off_t size = 0;
+    TSPUtilFile::size(file.data(), size);
     off_t nwrite = 0;
     tsp_response_ok(client_sockfd);
     tsp_response_server_name(client_sockfd);
@@ -76,9 +77,10 @@ void *tsp_module_basic_head(void *sockfd, void *request) {
     if (tsp_config_get("INDEX", index) != -1)
       file.append(index);
 
-  if (tsp_util_file_exist(file.data()) == 0) {
+  if (TSPUtilFile::exist(file.data()) == 0) {
     int fd = open(file.data(), O_RDONLY);
-    off_t size = tsp_util_file_size(file.data());
+    off_t size = 0;
+    TSPUtilFile::size(file.data(), size);
     tsp_response_ok(client_sockfd);
     tsp_response_server_name(client_sockfd);
     tsp_response_content_length(size, client_sockfd);

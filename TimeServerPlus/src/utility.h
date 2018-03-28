@@ -9,17 +9,6 @@
 
 using std::string;
 
-// remove in the future,attention please!
-
-int tsp_util_file_exist(const char *path);
-off_t tsp_util_file_size(const char *path);
-int tsp_util_file_last_modify(const char *path, string &res);
-int tsp_util_gmt(string &res);
-void *tsp_util_malloc(size_t size);
-void tsp_util_free(void *p);
-
-// recommand!
-
 class TSPUtilTime {
 public:
   static int tostring(time_t t, string &res, const char *fmt = "%F %X");

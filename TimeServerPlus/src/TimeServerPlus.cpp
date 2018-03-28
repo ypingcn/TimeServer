@@ -10,7 +10,7 @@ int main(int argc, char const *argv[]) {
     cout << "Usage: " << argv[0] << " <config_path>" << endl;
     exit(-1);
   }
-  if (tsp_util_file_exist(argv[1]) == -1) {
+  if (TSPUtilFile::exist(argv[1]) == -1) {
     perror("tsp_util_file_exist:");
     exit(-1);
   }
@@ -116,7 +116,7 @@ void *tsp_server_thread_function(void *param) {
   tsp_socket_nodelay(client_socket_fd);
   tsp_socket_set_timeout(client_socket_fd, 60, 0);
 
-  char *buff = (char *)tsp_util_malloc(BUFF_SIZE);
+  char *buff = (char *)TSPUtilMemory::malloc(BUFF_SIZE);
   bzero(buff, BUFF_SIZE);
 
 BEGIN:
@@ -139,7 +139,7 @@ BEGIN:
       goto OUT;
     } else {
       perror("tsp_server_thread_function: read other error");
-      tsp_util_free(buff);
+      TSPUtilMemory::free(buff);
       break;
     }
   }
