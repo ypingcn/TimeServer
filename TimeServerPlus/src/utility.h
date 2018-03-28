@@ -29,7 +29,7 @@ public:
 class TSPUtilFile {
 public:
   static int exist(const char *path);
-  static int size(const char *path, int &size);
+  static int size(const char *path, off_t &size);
   static int last_modify(const char *path, string &res);
   static int last_access(const char *path, string &res);
   static int last_change(const char *path, string &res);

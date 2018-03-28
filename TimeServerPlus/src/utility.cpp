@@ -56,7 +56,7 @@ int TSPUtilFile::exist(const char *path) {
   return res == -1 ? -1 : 0;
 }
 
-int TSPUtilFile::size(const char *path, int &size) {
+int TSPUtilFile::size(const char *path, off_t &size) {
   struct stat tmp;
   int res = stat(path, &tmp);
   if (res == -1) {
