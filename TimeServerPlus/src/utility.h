@@ -28,8 +28,8 @@ public:
 
 class TSPUtilMemory {
 public:
-  static void free(void *p);
-  static void *malloc(size_t size);
+  static void basic_free(void *p);
+  static void *basic_malloc(size_t size);
 };
 
 class TSPUtilIO {

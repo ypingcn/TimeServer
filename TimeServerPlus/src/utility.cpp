@@ -68,9 +68,9 @@ int TSPUtilFile::last_change(const char *path, string &res) {
   return 0;
 }
 
-void TSPUtilMemory::free(void *p) { free(p); }
+void TSPUtilMemory::basic_free(void *p) { free(p); }
 
-void *TSPUtilMemory::malloc(size_t size) {
+void *TSPUtilMemory::basic_malloc(size_t size) {
   void *res = malloc(size);
   if (res == NULL) {
     perror("tsp_util_malloc");

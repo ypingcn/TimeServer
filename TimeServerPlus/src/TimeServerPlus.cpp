@@ -116,7 +116,7 @@ void *tsp_server_thread_function(void *param) {
   tsp_socket_nodelay(client_socket_fd);
   tsp_socket_set_timeout(client_socket_fd, 60, 0);
 
-  char *buff = (char *)TSPUtilMemory::malloc(BUFF_SIZE);
+  char *buff = (char *)TSPUtilMemory::basic_malloc(BUFF_SIZE);
   bzero(buff, BUFF_SIZE);
 
 BEGIN:
@@ -139,7 +139,7 @@ BEGIN:
       goto OUT;
     } else {
       perror("tsp_server_thread_function: read other error");
-      TSPUtilMemory::free(buff);
+      TSPUtilMemory::basic_free(buff);
       break;
     }
   }
