@@ -78,3 +78,37 @@ void *TSPUtilMemory::malloc(size_t size) {
   }
   return res;
 }
+
+int TSPUtilIO::basic_write(int fd, char *buf, uint32_t cnt) {
+  while (true) {
+    int n = write(fd, buf, cnt);
+    if (n >= 0)
+      return n;
+    int err = errno;
+    switch (err) {
+    case EINTR:
+      break;
+    case EAGAIN:
+      return TSP_AGAIN;
+    default:
+      return TSP_ERROR;
+    }
+  }
+}
+
+int TSPUtilIO::basic_read(int fd, char *buf, uint32_t cnt) {
+  while (true) {
+    int n = read(fd, buf, cnt);
+    if (n >= 0)
+      return n;
+    int err = errno;
+    switch (err) {
+    case EINTR:
+      break;
+    case EAGAIN:
+      return TSP_AGAIN;
+    default:
+      return TSP_ERROR;
+    }
+  }
+}

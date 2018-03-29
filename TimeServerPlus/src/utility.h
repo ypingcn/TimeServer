@@ -9,6 +9,8 @@
 
 using std::string;
 
+enum ResultCode { TSP_OK = 0, TSP_ERROR = -1, TSP_AGAIN = -2 };
+
 class TSPUtilTime {
 public:
   static int tostring(time_t t, string &res, const char *fmt = "%F %X");
@@ -28,6 +30,12 @@ class TSPUtilMemory {
 public:
   static void free(void *p);
   static void *malloc(size_t size);
+};
+
+class TSPUtilIO {
+public:
+  static int basic_write(int fd, char *buf, uint32_t cnt);
+  static int basic_read(int fd, char *buf, uint32_t cnt);
 };
 
 #endif
