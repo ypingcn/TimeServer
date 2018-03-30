@@ -77,7 +77,7 @@ void tsp_response_expires(int sockfd) {}
 
 void tsp_response_server_name(int sockfd) {
   std::string name;
-  if (tsp_config_get("SERVERSTRING", name) == -1)
+  if (TSPConfig::instance()->get("SERVERSTRING", name) == -1)
     name = "TimeServerPlus(TSP)/0.1.171007(cpp)";
   char status[1024];
   snprintf(status, sizeof(status), "Server: %s\r\n", name.data());

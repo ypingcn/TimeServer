@@ -40,10 +40,10 @@ void *tsp_module_basic_get(void *sockfd, void *request) {
   tsp_request_t *client_request = (tsp_request_t *)request;
 
   std::string path, index;
-  tsp_config_get("DOCROOT", path);
+  TSPConfig::instance()->get("DOCROOT", path);
   std::string file = path + client_request->url;
   if (client_request->url == "/")
-    if (tsp_config_get("INDEX", index) != -1)
+    if (TSPConfig::instance()->get("INDEX", index) != -1)
       file.append(index);
 
   if (TSPUtilFile::exist(file.data()) == 0) {
@@ -75,10 +75,10 @@ void *tsp_module_basic_head(void *sockfd, void *request) {
   tsp_request_t *client_request = (tsp_request_t *)request;
 
   std::string path, index;
-  tsp_config_get("DOCROOT", path);
+  TSPConfig::instance()->get("DOCROOT", path);
   std::string file = path + client_request->url;
   if (client_request->url == "/")
-    if (tsp_config_get("INDEX", index) != -1)
+    if (TSPConfig::instance()->get("INDEX", index) != -1)
       file.append(index);
 
   if (TSPUtilFile::exist(file.data()) == 0) {

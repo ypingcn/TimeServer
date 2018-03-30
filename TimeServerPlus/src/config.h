@@ -9,9 +9,6 @@
 
 using std::string;
 
-int tsp_config_parse(const std::string path);
-int tsp_config_get(const std::string key, std::string &value);
-
 class TSPConfig {
 public:
   TSPConfig(const TSPConfig &) = delete;

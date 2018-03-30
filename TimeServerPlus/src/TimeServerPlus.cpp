@@ -1,6 +1,8 @@
 #include "TimeServerPlus.h"
+#include "logger.h"
 
 #include <cstdlib>
+#include <cstring>
 #include <iostream>
 
 using namespace std;
@@ -14,14 +16,14 @@ int main(int argc, char const *argv[]) {
     TSPLogger::instance()->error("config file not exist [%s]", strerror(errno));
     exit(-1);
   }
-  if (tsp_config_parse(argv[1]) == -1) {
+  if (TSPConfig::instance()->parse(argv[1]) == -1) {
     TSPLogger::instance()->error("config file parse error [%s]",
                                  strerror(errno));
     exit(-1);
   }
 
   string port;
-  if (tsp_config_get("PORT", port) == -1 || port == "")
+  if (TSPConfig::instance()->get("PORT", port) == -1 || port == "")
     port = "8600";
   cout << "TSP Running .. port :" << port << endl;
 
