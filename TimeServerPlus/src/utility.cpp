@@ -17,6 +17,12 @@ int TSPUtilTime::now(string &res) {
   return tostring(t, res, "%F %X");
 }
 
+int TSPUtilFile::is_directory(const char *path) {
+  int dir = open(path, O_DIRECTORY);
+  close(dir);
+  return dir == -1 ? -1 : 0;
+}
+
 int TSPUtilFile::exist(const char *path) {
   int res = open(path, O_RDONLY | O_NOFOLLOW), dir = open(path, O_DIRECTORY);
   if (dir != -1)

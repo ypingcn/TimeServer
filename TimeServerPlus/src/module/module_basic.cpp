@@ -46,6 +46,15 @@ void *tsp_module_basic_get(void *sockfd, void *request) {
     if (TSPConfig::instance()->get("INDEX", index) != -1)
       file.append(index);
 
+  if (TSPUtilFile::is_directory(file.data()) == 0) {
+    std::string index;
+    TSPConfig::instance()->get("INDEX", index);
+    if (file[file.length() - 1] == '/')
+      file.append(index);
+    else
+      file.append("/" + index);
+  }
+
   if (TSPUtilFile::exist(file.data()) == 0) {
     int fd = open(file.data(), O_RDONLY);
     off_t size = 0;
@@ -80,6 +89,15 @@ void *tsp_module_basic_head(void *sockfd, void *request) {
   if (client_request->url == "/")
     if (TSPConfig::instance()->get("INDEX", index) != -1)
       file.append(index);
+
+  if (TSPUtilFile::is_directory(file.data()) == 0) {
+    std::string index;
+    TSPConfig::instance()->get("INDEX", index);
+    if (file[file.length() - 1] == '/')
+      file.append(index);
+    else
+      file.append("/" + index);
+  }
 
   if (TSPUtilFile::exist(file.data()) == 0) {
     int fd = open(file.data(), O_RDONLY);
