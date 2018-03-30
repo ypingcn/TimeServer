@@ -11,11 +11,12 @@ int main(int argc, char const *argv[]) {
     exit(-1);
   }
   if (TSPUtilFile::exist(argv[1]) == -1) {
-    perror("tsp_util_file_exist:");
+    TSPLogger::instance()->error("config file not exist [%s]", strerror(errno));
     exit(-1);
   }
   if (tsp_config_parse(argv[1]) == -1) {
-    perror("tsp_config_parse:");
+    TSPLogger::instance()->error("config file parse error [%s]",
+                                 strerror(errno));
     exit(-1);
   }
 
@@ -135,10 +136,12 @@ BEGIN:
     else if (n == -1 && errno == EAGAIN)
       break;
     else if (n == -1 && errno == EWOULDBLOCK) {
-      perror("tsp_server_thread_function: read socket timeout");
+      TSPLogger::instance()->error(
+          "thread function error : read socket timeout [%s]", strerror(errno));
       goto OUT;
     } else {
-      perror("tsp_server_thread_function: read other error");
+      TSPLogger::instance()->error(
+          "thread function error : read other error [%s]", strerror(errno));
       TSPUtilMemory::basic_free(buff);
       break;
     }
@@ -148,7 +151,8 @@ BEGIN:
     string raw_request(buff, buff + nread);
 
     if (tsp_request_parse(raw_request, thread_request) == -1) {
-      perror("tsp_server_thread_function: request parse fail");
+      TSPLogger::instance()->error(
+          "thread function error : request parse fail [%s]", strerror(errno));
       tsp_response_bad_request(client_socket_fd);
       tsp_response_headers_end(client_socket_fd);
       tsp_request_delete(thread_request);

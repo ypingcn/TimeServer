@@ -1,9 +1,12 @@
 #include "core.h"
+#include "logger.h"
+
+#include <cstring>
 
 int tsp_socket(int domain, int type, int protocol) {
   int fd = socket(domain, type, protocol);
   if (fd == -1) {
-    perror("tsp_socket:");
+    TSPLogger::instance()->error("socket init error [%s]", strerror(errno));
     exit(-1);
   }
   return fd;
@@ -12,13 +15,15 @@ int tsp_socket(int domain, int type, int protocol) {
 int tsp_socket_nonblocking(int sockfd) {
   int f = fcntl(sockfd, F_GETFL, 0);
   if (f < 0) {
-    perror("tsp_socket_nonblocking,GETFL");
+    TSPLogger::instance()->error("socket nonblocking GETFL error [%s]",
+                                 strerror(errno));
     exit(-1);
   }
   f |= O_NONBLOCK;
   int res = fcntl(sockfd, F_SETFL, f);
   if (res < 0) {
-    perror("tsp_socket_nonblocking,SETFL");
+    TSPLogger::instance()->error("socket nonblocking SETFL error [%s]",
+                                 strerror(errno));
     exit(-1);
   }
 }
@@ -28,7 +33,8 @@ int tsp_socket_reuseaddr(int sockfd) {
   int res =
       setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse_on, sizeof(reuse_on));
   if (res < 0) {
-    perror("tsp_socket_reuseaddr");
+    TSPLogger::instance()->error("socket reuseraddr setting error [%s]",
+                                 strerror(errno));
     exit(-1);
   }
 }
@@ -38,7 +44,8 @@ void tsp_socket_nodelay(int sockfd) {
   int res =
       setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &nodelay, sizeof(nodelay));
   if (res == -1) {
-    perror("tsp_socket_nodelay:");
+    TSPLogger::instance()->error("socket nodelay setting error [%s]",
+                                 strerror(errno));
     exit(-1);
   }
 }
@@ -47,20 +54,21 @@ void tsp_socket_set_timeout(int sockfd, int sec, int usec) {
   struct timeval val = {sec, usec};
   int res = setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &val, sizeof(val));
   if (res == -1) {
-    perror("tsp_socket_set_timeout:");
+    TSPLogger::instance()->error("socket timeout setting error [%s]",
+                                 strerror(errno));
     exit(-1);
   }
 }
 void tsp_socket_bind(int sockfd, const struct sockaddr *addr, socklen_t len) {
   if (bind(sockfd, addr, len) == -1) {
-    perror("tsp_socket_bind");
+    TSPLogger::instance()->error("socket bind error [%s]", strerror(errno));
     exit(-1);
   }
 }
 
 void tsp_socket_listen(int sockfd, int backlog) {
   if (listen(sockfd, backlog) == -1) {
-    perror("tsp_socket_listen");
+    TSPLogger::instance()->error("socket listen error [%s]", strerror(errno));
     exit(-1);
   }
 }
@@ -74,7 +82,8 @@ int tsp_socket_accept(int sockfd, struct sockaddr *addr, socklen_t *len) {
     if (new_sockfd == -1) {
       if (errno != EAGAIN && errno != EINTR && errno != EPROTO &&
           errno != ECONNABORTED) {
-        perror("tsp_socket_accept");
+        TSPLogger::instance()->error("socket accept error [%s]",
+                                     strerror(errno));
         exit(-1);
       }
     }
@@ -84,7 +93,7 @@ int tsp_socket_accept(int sockfd, struct sockaddr *addr, socklen_t *len) {
 int tsp_epoll_create(int size) {
   int epollfd = epoll_create(size);
   if (epollfd == -1) {
-    perror("tsp_epoll_create");
+    TSPLogger::instance()->error("epoll create error [%s]", strerror(errno));
     exit(-1);
   }
   return epollfd;
@@ -92,7 +101,7 @@ int tsp_epoll_create(int size) {
 
 void tsp_epoll_ctl(int epollfd, int op, int fd, struct epoll_event *event) {
   if (epoll_ctl(epollfd, op, fd, event) == -1) {
-    perror("tsp_epoll_ctl");
+    TSPLogger::instance()->error("epoll ctl error [%s]", strerror(errno));
     exit(-1);
   }
 }
@@ -102,7 +111,7 @@ int tsp_epoll_wait(int epollfd, struct epoll_event *events, int maxevents,
   int num = epoll_wait(epollfd, events, maxevents, timeout);
   while (num == -1) {
     if (errno != EINTR) {
-      perror("tsp_epoll_wait");
+      TSPLogger::instance()->error("epoll wait error [%s]", strerror(errno));
       exit(-1);
     }
     num = epoll_wait(epollfd, events, maxevents, timeout);

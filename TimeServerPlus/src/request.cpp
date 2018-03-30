@@ -1,9 +1,12 @@
 #include "request.h"
+#include "logger.h"
+
+#include <cstring>
 
 tsp_request_t *tsp_request_new(void) {
   tsp_request_t *res = (tsp_request_t *)new tsp_request_t;
   if (res == NULL) {
-    perror("tsp_httpheaders_new");
+    TSPLogger::instance()->error("request_t new error");
     exit(-1);
   }
   return res;
@@ -22,11 +25,13 @@ using std::endl;
 int tsp_request_parse(const std::string &raw_request,
                       tsp_request_t *parse_result) {
   if (raw_request.empty()) {
-    perror("tsp_httpheaders_parse:empty raw_request");
+    TSPLogger::instance()->error("headers parse error empty raw_request [%s]",
+                                 strerror(errno));
     return -1;
   }
   if (parse_result == NULL) {
-    perror("tsp_httpheaders_parse:parse_result NULL");
+    TSPLogger::instance()->error("headers parse error empty result [%s]",
+                                 strerror(errno));
     return -1;
   }
 
@@ -88,7 +93,8 @@ int tsp_request_parse(const std::string &raw_request,
 
     pre = nxt;
   } else {
-    perror("tsp_httpheaders_parse: raw_request without '\r\n'");
+    TSPLogger::instance()->error(
+        "headers parse error raw_request without '\r\n' [%s]", strerror(errno));
     return -1;
   }
 

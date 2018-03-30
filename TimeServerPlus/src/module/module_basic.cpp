@@ -1,4 +1,7 @@
 #include "module_basic.h"
+#include "../logger.h"
+
+#include <cstring>
 
 void tsp_module_basic_init(std::vector<tsp_module_t> &v) {
   tsp_module_t value = {{regex("^.*$"), string("GET"), string("HTTP/1.1")},
@@ -55,7 +58,8 @@ void *tsp_module_basic_get(void *sockfd, void *request) {
     sendfile(client_sockfd, fd, &nwrite, size);
     while (nwrite < size) {
       if (sendfile(client_sockfd, fd, &nwrite, size) < 0)
-        perror("tsp_module_basic_get");
+        TSPLogger::instance()->error("module basic get error [%s]",
+                                     strerror(errno));
     }
   } else {
     tsp_response_not_found(client_sockfd);

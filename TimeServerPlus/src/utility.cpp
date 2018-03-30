@@ -1,5 +1,7 @@
 #include "utility.h"
+#include "logger.h"
 
+#include <cstring>
 #include <iostream>
 
 int TSPUtilTime::tostring(time_t t, string &res, const char *fmt) {
@@ -73,7 +75,7 @@ void TSPUtilMemory::basic_free(void *p) { free(p); }
 void *TSPUtilMemory::basic_malloc(size_t size) {
   void *res = malloc(size);
   if (res == NULL) {
-    perror("tsp_util_malloc");
+    TSPLogger::instance()->error("basic_malloc error [%s]", strerror(errno));
     exit(-1);
   }
   return res;
