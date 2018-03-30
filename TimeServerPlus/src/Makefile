@@ -24,6 +24,6 @@ load-modules.o:
 	cd module && make && cp load-modules.o ../load-modules.o
 
 clean:
-	rm *.o module/*.o main
+	rm *.o module/*.o main.out
 mclean:
 	rm module/*.o load-modules.o
