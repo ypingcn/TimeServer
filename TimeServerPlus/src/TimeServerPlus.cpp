@@ -88,12 +88,12 @@ void tsp_server_event_circles(int server_fd) {
         tsp_epoll_ctl(epollfd, EPOLL_CTL_ADD, client_socket_fd, &e);
 
       } else {
-        e.data.fd = client_socket_fd;
-        tsp_epoll_ctl(epollfd, EPOLL_CTL_DEL, client_socket_fd, &e);
+        e.data.fd = ev[i].data.fd;
+        tsp_epoll_ctl(epollfd, EPOLL_CTL_DEL, ev[i].data.fd, &e);
 
         pthread_t tid;
         pthread_create(&tid, &pthread_attr_detach, &tsp_server_thread_function,
-                       (void *)(intptr_t)client_socket_fd);
+                       (void *)(intptr_t)ev[i].data.fd);
       }
     }
   }
