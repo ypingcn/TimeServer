@@ -13,7 +13,9 @@ void TSPLogger::log(const char *level, const char *fmt, va_list args) {
   char buff[1024];
   string now;
   TSPUtilTime::now(now);
-  int siz = snprintf(buff, 1024, "[%s] %s : ", level, now.c_str());
+  pthread_t pid = pthread_self();
+  int siz = snprintf(buff, 1024, "[%s][pid:%u] %s : ", level, (unsigned int)pid,
+                     now.c_str());
   siz += vsnprintf(buff + siz, 1024 - siz, fmt, args);
   if (siz == 1024) {
     buff[1023] = '\n';
