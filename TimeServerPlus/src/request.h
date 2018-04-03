@@ -20,4 +20,43 @@ int tsp_request_parse(const std::string &raw_request,
                       tsp_request_t *parse_result);
 void tsp_request_handle(int sockfd, tsp_request_t *request);
 
+using std::cout;
+using std::endl;
+using std::string;
+
+typedef std::map<string, string> TSPRequestArgsType;
+typedef std::map<string, string> TSPRequestHeadersType;
+#define new_header(key, value) std::make_pair((key), (value))
+#define new_arg(key, value) std::make_pair((key), (value))
+
+class TSPRequest {
+public:
+  explicit TSPRequest(int fd) : sockfd(fd){};
+  ~TSPRequest() { close(sockfd); };
+  TSPRequest(const TSPRequest &) = delete;
+  TSPRequest &operator=(const TSPRequest &) = delete;
+
+  int parse_from_string(const string &raw_request);
+  void debug() {
+    for (auto i : args)
+      cout << i.first << "#" << i.second << endl;
+    for (auto i : headers)
+      cout << i.first << "#" << i.second << endl;
+  }
+
+private:
+  string method;
+  string url;
+  string version;
+  TSPRequestArgsType args;
+  TSPRequestHeadersType headers;
+  string body;
+  int sockfd;
+};
+
+int parse_args(const string &raw_string, TSPRequestArgsType &args);
+int parse_headers(const string &raw_string, TSPRequestHeadersType &headers);
+
+void tsp_request_handle(const TSPRequest &req);
+
 #endif
