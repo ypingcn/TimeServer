@@ -122,10 +122,12 @@ void *tsp_server_thread_function(void *param) {
   char *buff = (char *)TSPUtilMemory::basic_malloc(BUFF_SIZE);
   bzero(buff, BUFF_SIZE);
 
+  tsp_request_t *thread_request;
+
 BEGIN:
   int32_t nread = 0, n = 0;
   int nfds = 0;
-  tsp_request_t *thread_request = tsp_request_new();
+  thread_request = tsp_request_new();
 
   for (;;) {
     n = read(client_socket_fd, buff + nread, BUFF_SIZE - 1);
