@@ -10,6 +10,7 @@
 #include <map>
 #include <sstream>
 #include <string>
+#include <unistd.h>
 
 #define new_httpheader(key, value) std::make_pair((key), (value))
 #define new_urlarg(ket, value) std::make_pair((key), (value));
@@ -37,6 +38,18 @@ public:
   TSPRequest &operator=(const TSPRequest &) = delete;
 
   int parse_from_string(const string &raw_request);
+
+  string get_method() { return method; }
+  string get_url() { return url; }
+  string get_version() { return version; }
+  string get_body() { return body; }
+  int get_sockfd() { return sockfd; }
+
+  string get_args(const string &key);
+  int exist_args(const string &key, const string &value);
+  string get_headers(const string &key);
+  int exist_headers(const string &key, const string &value);
+
   void debug() {
     for (auto i : args)
       cout << i.first << "#" << i.second << endl;
