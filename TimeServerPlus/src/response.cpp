@@ -131,3 +131,24 @@ void tsp_response_http_version_not_supported(int sockfd) {
            "Http Version Not Supported");
   write(sockfd, status, strlen(status));
 }
+
+int TSPBasicResponse::match(TSPRequest &req) {
+  string url = req.get_url();
+  string method = req.get_method();
+  string version = req.get_version();
+
+  if (!std::regex_match(url, this->pattern.url_pattern))
+    return -1;
+  if (this->pattern.method != "" && method != this->pattern.method)
+    return -1;
+  if (this->pattern.version == string("") ||
+      this->pattern.version == string()) {
+    if (version != string("HTTP/1.1"))
+      return -1;
+  }
+  if (this->pattern.version != version)
+    return -1;
+  return 0;
+}
+
+void tsp_response(TSPRequest &req) {}
