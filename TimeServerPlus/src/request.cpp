@@ -176,6 +176,9 @@ int TSPRequest::parse_from_string(const string &raw_request) {
       return -1;
 
     string url_line(url);
+    if (url_line.find("..", 0) != string::npos)
+      url_line = "/";
+
     if (parse_args(url_line, args) == -1)
       return -1;
 
