@@ -19,3 +19,12 @@ void tsp_module_sort_by_priority() {
   sort(tsp_module_vector.begin(), tsp_module_vector.end(),
        [](tsp_module_t a, tsp_module_t b) { return a.priority > b.priority; });
 }
+
+ResponseVectorType TSPModuleManager::response = install_modules();
+
+ResponseVectorType install_modules() {
+  ResponseVectorType res;
+  install_basic_modules(res);
+  install_time_modules(res);
+  return res;
+}

@@ -23,4 +23,60 @@ void *tsp_module_basic_post(void *sockfd, void *request);
 void *tsp_module_basic_put(void *sockfd, void *request);
 void *tsp_module_basic_delete(void *sockfd, void *request);
 
+class TSPBasicGetResponse : public TSPBasicResponse {
+public:
+  TSPBasicGetResponse(int _priority, TSPResponsePatternType _pattern)
+      : TSPBasicResponse(_priority, _pattern) {}
+  ~TSPBasicGetResponse(){};
+
+  int handle(TSPRequest &req) final;
+};
+
+class TSPBasicHeadResponse : public TSPBasicResponse {
+public:
+  TSPBasicHeadResponse(int _priority, TSPResponsePatternType _pattern)
+      : TSPBasicResponse(_priority, _pattern) {}
+  ~TSPBasicHeadResponse(){};
+
+  int handle(TSPRequest &req) final;
+};
+
+class TSPBasicOptionsResponse : public TSPBasicResponse {
+public:
+  TSPBasicOptionsResponse(int _priority, TSPResponsePatternType _pattern)
+      : TSPBasicResponse(_priority, _pattern) {}
+  ~TSPBasicOptionsResponse(){};
+
+  int handle(TSPRequest &req) final;
+};
+
+class TSPBasicPostResponse : public TSPBasicResponse {
+public:
+  TSPBasicPostResponse(int _priority, TSPResponsePatternType _pattern)
+      : TSPBasicResponse(_priority, _pattern) {}
+  ~TSPBasicPostResponse(){};
+
+  int handle(TSPRequest &req) final;
+};
+
+class TSPBasicPutResponse : public TSPBasicResponse {
+public:
+  TSPBasicPutResponse(int _priority, TSPResponsePatternType _pattern)
+      : TSPBasicResponse(_priority, _pattern) {}
+  ~TSPBasicPutResponse(){};
+
+  int handle(TSPRequest &req) final;
+};
+
+class TSPBasicDeleteResponse : public TSPBasicResponse {
+public:
+  TSPBasicDeleteResponse(int _priority, TSPResponsePatternType _pattern)
+      : TSPBasicResponse(_priority, _pattern) {}
+  ~TSPBasicDeleteResponse(){};
+
+  int handle(TSPRequest &req) final;
+};
+
+void install_basic_modules(ResponseVectorType &t);
+
 #endif

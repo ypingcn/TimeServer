@@ -172,3 +172,20 @@ void *tsp_module_time_file_mtime(void *sockfd, void *request) {
   client_request = nullptr;
   delete client_request;
 }
+
+int TSPTimeLocaltimeResponse::handle(TSPRequest &req) {}
+int TSPTimeFileCtimeResponse::handle(TSPRequest &req) {}
+int TSPTimeFileAtimeResponse::handle(TSPRequest &req) {}
+int TSPTimeFileMtimeResponse::handle(TSPRequest &req) {}
+
+void install_time_modules(ResponseVectorType &t) {
+  t.push_back(TSPTimeFileCtimeResponse(
+      DEFAULT_RESPONSE_PRIORITY, {regex("^.*?ctime=1$"), "GET", "HTTP/1.1"}));
+  t.push_back(TSPTimeFileAtimeResponse(
+      DEFAULT_RESPONSE_PRIORITY, {regex("^.*?atime=1$"), "GET", "HTTP/1.1"}));
+  t.push_back(TSPTimeFileMtimeResponse(
+      DEFAULT_RESPONSE_PRIORITY, {regex("^.*?mtime=1$"), "GET", "HTTP/1.1"}));
+  t.push_back(
+      TSPTimeLocaltimeResponse(DEFAULT_RESPONSE_PRIORITY,
+                               {regex("^.*?localtime=1$"), "GET", "HTTP/1.1"}));
+}

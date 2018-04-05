@@ -168,3 +168,25 @@ void *tsp_module_basic_delete(void *sockfd, void *request) {
   tsp_response_content_length((off_t)0, client_sockfd);
   tsp_response_headers_end(client_sockfd);
 }
+
+int TSPBasicGetResponse::handle(TSPRequest &req) {}
+int TSPBasicHeadResponse::handle(TSPRequest &req) {}
+int TSPBasicOptionsResponse::handle(TSPRequest &req) {}
+int TSPBasicPostResponse::handle(TSPRequest &req) {}
+int TSPBasicPutResponse::handle(TSPRequest &req) {}
+int TSPBasicDeleteResponse::handle(TSPRequest &req) {}
+
+void install_basic_modules(ResponseVectorType &t) {
+  t.push_back(TSPBasicGetResponse(MIN_RESPONSE_PRIORITY,
+                                  {regex("^.*$"), "GET", "HTTP/1.1"}));
+  t.push_back(TSPBasicHeadResponse(MIN_RESPONSE_PRIORITY,
+                                   {regex("^.*$"), "HEAD", "HTTP/1.1"}));
+  t.push_back(TSPBasicOptionsResponse(MIN_RESPONSE_PRIORITY,
+                                      {regex("^.*$"), "OPTIONS", "HTTP/1.1"}));
+  t.push_back(TSPBasicPostResponse(MIN_RESPONSE_PRIORITY,
+                                   {regex("^.*$"), "POST", "HTTP/1.1"}));
+  t.push_back(TSPBasicPutResponse(MIN_RESPONSE_PRIORITY,
+                                  {regex("^.*$"), "PUT", "HTTP/1.1"}));
+  t.push_back(TSPBasicDeleteResponse(MIN_RESPONSE_PRIORITY,
+                                     {regex("^.*$"), "DELETE", "HTTP/1.1"}));
+}
