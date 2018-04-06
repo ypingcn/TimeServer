@@ -146,7 +146,6 @@ BEGIN:
     } else {
       TSPLogger::instance()->error(
           "thread function error : read other error [%s]", strerror(errno));
-      TSPUtilMemory::basic_free(buff);
       break;
     }
   }
@@ -178,6 +177,7 @@ BEGIN:
 
 OUT:
   close(client_socket_fd);
+  TSPUtilMemory::basic_free(buff);
   tsp_request_delete(thread_request);
   tsp_server_thread_num_del();
   printf("Thread %u exit\n", (unsigned int)thread_id);
