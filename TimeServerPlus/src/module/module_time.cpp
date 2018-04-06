@@ -173,10 +173,10 @@ void *tsp_module_time_file_mtime(void *sockfd, void *request) {
   delete client_request;
 }
 
-int TSPTimeLocaltimeResponse::handle(TSPRequest &req) {}
-int TSPTimeFileCtimeResponse::handle(TSPRequest &req) {}
-int TSPTimeFileAtimeResponse::handle(TSPRequest &req) {}
-int TSPTimeFileMtimeResponse::handle(TSPRequest &req) {}
+int TSPTimeLocaltimeResponse::handle(const TSPRequest &req) {}
+int TSPTimeFileCtimeResponse::handle(const TSPRequest &req) {}
+int TSPTimeFileAtimeResponse::handle(const TSPRequest &req) {}
+int TSPTimeFileMtimeResponse::handle(const TSPRequest &req) {}
 
 void install_time_modules(ResponseVectorType &t) {
   t.push_back(TSPTimeFileCtimeResponse(

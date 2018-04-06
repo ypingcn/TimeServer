@@ -29,7 +29,7 @@ public:
       : TSPBasicResponse(_priority, _pattern) {}
   ~TSPBasicGetResponse(){};
 
-  int handle(TSPRequest &req) final;
+  int handle(const TSPRequest &req) final;
 };
 
 class TSPBasicHeadResponse : public TSPBasicResponse {
@@ -38,7 +38,7 @@ public:
       : TSPBasicResponse(_priority, _pattern) {}
   ~TSPBasicHeadResponse(){};
 
-  int handle(TSPRequest &req) final;
+  int handle(const TSPRequest &req) final;
 };
 
 class TSPBasicOptionsResponse : public TSPBasicResponse {
@@ -47,7 +47,7 @@ public:
       : TSPBasicResponse(_priority, _pattern) {}
   ~TSPBasicOptionsResponse(){};
 
-  int handle(TSPRequest &req) final;
+  int handle(const TSPRequest &req) final;
 };
 
 class TSPBasicPostResponse : public TSPBasicResponse {
@@ -56,7 +56,7 @@ public:
       : TSPBasicResponse(_priority, _pattern) {}
   ~TSPBasicPostResponse(){};
 
-  int handle(TSPRequest &req) final;
+  int handle(const TSPRequest &req) final;
 };
 
 class TSPBasicPutResponse : public TSPBasicResponse {
@@ -65,7 +65,7 @@ public:
       : TSPBasicResponse(_priority, _pattern) {}
   ~TSPBasicPutResponse(){};
 
-  int handle(TSPRequest &req) final;
+  int handle(const TSPRequest &req) final;
 };
 
 class TSPBasicDeleteResponse : public TSPBasicResponse {
@@ -74,7 +74,7 @@ public:
       : TSPBasicResponse(_priority, _pattern) {}
   ~TSPBasicDeleteResponse(){};
 
-  int handle(TSPRequest &req) final;
+  int handle(const TSPRequest &req) final;
 };
 
 void install_basic_modules(ResponseVectorType &t);

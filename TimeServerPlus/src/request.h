@@ -39,16 +39,16 @@ public:
 
   int parse_from_string(const string &raw_request);
 
-  string get_method() { return method; }
-  string get_url() { return url; }
-  string get_version() { return version; }
-  string get_body() { return body; }
-  int get_sockfd() { return sockfd; }
+  string get_method() const { return method; }
+  string get_url() const { return url; }
+  string get_version() const { return version; }
+  string get_body() const { return body; }
+  int get_sockfd() const { return sockfd; }
 
-  string get_args(const string &key);
-  int exist_args(const string &key, const string &value);
-  string get_headers(const string &key);
-  int exist_headers(const string &key, const string &value);
+  string get_args(const string &key) const;
+  int exist_args(const string &key, const string &value) const;
+  string get_headers(const string &key) const;
+  int exist_headers(const string &key, const string &value) const;
 
   void debug() {
     for (auto i : args)

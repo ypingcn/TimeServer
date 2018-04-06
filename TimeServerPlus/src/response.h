@@ -54,14 +54,14 @@ public:
   TSPBasicResponse &operator=(const TSPBasicResponse &) = default;
 
   int get_priority() { return priority; }
-  int match(TSPRequest &req);
-  virtual int handle(TSPRequest &req){};
+  int match(const TSPRequest &req);
+  virtual int handle(const TSPRequest &req){};
 
 private:
   int priority = DEFAULT_RESPONSE_PRIORITY;
   TSPResponsePatternType pattern;
 };
 
-void tsp_response(TSPRequest &req);
+void tsp_response(const TSPRequest &req);
 
 #endif

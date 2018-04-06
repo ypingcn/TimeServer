@@ -169,12 +169,12 @@ void *tsp_module_basic_delete(void *sockfd, void *request) {
   tsp_response_headers_end(client_sockfd);
 }
 
-int TSPBasicGetResponse::handle(TSPRequest &req) {}
-int TSPBasicHeadResponse::handle(TSPRequest &req) {}
-int TSPBasicOptionsResponse::handle(TSPRequest &req) {}
-int TSPBasicPostResponse::handle(TSPRequest &req) {}
-int TSPBasicPutResponse::handle(TSPRequest &req) {}
-int TSPBasicDeleteResponse::handle(TSPRequest &req) {}
+int TSPBasicGetResponse::handle(const TSPRequest &req) {}
+int TSPBasicHeadResponse::handle(const TSPRequest &req) {}
+int TSPBasicOptionsResponse::handle(const TSPRequest &req) {}
+int TSPBasicPostResponse::handle(const TSPRequest &req) {}
+int TSPBasicPutResponse::handle(const TSPRequest &req) {}
+int TSPBasicDeleteResponse::handle(const TSPRequest &req) {}
 
 void install_basic_modules(ResponseVectorType &t) {
   t.push_back(TSPBasicGetResponse(MIN_RESPONSE_PRIORITY,

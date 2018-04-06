@@ -24,7 +24,7 @@ public:
       : TSPBasicResponse(_priority, _type) {}
   ~TSPTimeLocaltimeResponse() {}
 
-  int handle(TSPRequest &req) final;
+  int handle(const TSPRequest &req) final;
 };
 
 class TSPTimeFileCtimeResponse : public TSPBasicResponse {
@@ -33,7 +33,7 @@ public:
       : TSPBasicResponse(_priority, _type) {}
   ~TSPTimeFileCtimeResponse() {}
 
-  int handle(TSPRequest &req) final;
+  int handle(const TSPRequest &req) final;
 };
 
 class TSPTimeFileAtimeResponse : public TSPBasicResponse {
@@ -42,7 +42,7 @@ public:
       : TSPBasicResponse(_priority, _type) {}
   ~TSPTimeFileAtimeResponse() {}
 
-  int handle(TSPRequest &req) final;
+  int handle(const TSPRequest &req) final;
 };
 
 class TSPTimeFileMtimeResponse : public TSPBasicResponse {
@@ -51,7 +51,7 @@ public:
       : TSPBasicResponse(_priority, _type) {}
   ~TSPTimeFileMtimeResponse() {}
 
-  int handle(TSPRequest &req) final;
+  int handle(const TSPRequest &req) final;
 };
 
 void install_time_modules(ResponseVectorType &t);

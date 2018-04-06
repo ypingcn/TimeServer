@@ -132,7 +132,7 @@ void tsp_response_http_version_not_supported(int sockfd) {
   write(sockfd, status, strlen(status));
 }
 
-int TSPBasicResponse::match(TSPRequest &req) {
+int TSPBasicResponse::match(const TSPRequest &req) {
   string url = req.get_url();
   string method = req.get_method();
   string version = req.get_version();
@@ -151,4 +151,27 @@ int TSPBasicResponse::match(TSPRequest &req) {
   return 0;
 }
 
-void tsp_response(TSPRequest &req) {}
+void tsp_response(const TSPRequest &req) {
+  bool match = false;
+
+  for (auto i : TSPModuleManager::get()) {
+    if (i.match(req) == 0) {
+      i.handle(req);
+      match = true;
+      break;
+    }
+  }
+
+  if (!match) {
+    int sockfd = req.get_sockfd();
+    if (req.get_version() != "HTTP/1.1") {
+      tsp_response_http_version_not_supported(sockfd);
+      tsp_response_server_name(sockfd);
+      tsp_response_headers_end(sockfd);
+    } else {
+      tsp_response_not_implemented(sockfd);
+      tsp_response_server_name(sockfd);
+      tsp_response_headers_end(sockfd);
+    }
+  }
+}

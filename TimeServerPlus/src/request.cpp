@@ -294,3 +294,5 @@ int parse_headers(const string &raw_string, TSPRequestHeadersType &headers) {
 
   return 0;
 }
+
+void tsp_request_handle(const TSPRequest &req) { tsp_response(req); }
