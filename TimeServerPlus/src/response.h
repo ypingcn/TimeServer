@@ -55,7 +55,7 @@ public:
 
   int get_priority() { return priority; }
   int match(const TSPRequest &req);
-  virtual int handle(const TSPRequest &req){};
+  virtual int handle(const TSPRequest &req) = 0;
 
 private:
   int priority = DEFAULT_RESPONSE_PRIORITY;

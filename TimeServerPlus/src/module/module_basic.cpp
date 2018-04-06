@@ -177,16 +177,16 @@ int TSPBasicPutResponse::handle(const TSPRequest &req) {}
 int TSPBasicDeleteResponse::handle(const TSPRequest &req) {}
 
 void install_basic_modules(ResponseVectorType &t) {
-  t.push_back(TSPBasicGetResponse(MIN_RESPONSE_PRIORITY,
-                                  {regex("^.*$"), "GET", "HTTP/1.1"}));
-  t.push_back(TSPBasicHeadResponse(MIN_RESPONSE_PRIORITY,
-                                   {regex("^.*$"), "HEAD", "HTTP/1.1"}));
-  t.push_back(TSPBasicOptionsResponse(MIN_RESPONSE_PRIORITY,
-                                      {regex("^.*$"), "OPTIONS", "HTTP/1.1"}));
-  t.push_back(TSPBasicPostResponse(MIN_RESPONSE_PRIORITY,
-                                   {regex("^.*$"), "POST", "HTTP/1.1"}));
-  t.push_back(TSPBasicPutResponse(MIN_RESPONSE_PRIORITY,
-                                  {regex("^.*$"), "PUT", "HTTP/1.1"}));
-  t.push_back(TSPBasicDeleteResponse(MIN_RESPONSE_PRIORITY,
-                                     {regex("^.*$"), "DELETE", "HTTP/1.1"}));
+  t.push_back(new TSPBasicGetResponse(MIN_RESPONSE_PRIORITY,
+                                      {regex("^.*$"), "GET", "HTTP/1.1"}));
+  t.push_back(new TSPBasicHeadResponse(MIN_RESPONSE_PRIORITY,
+                                       {regex("^.*$"), "HEAD", "HTTP/1.1"}));
+  t.push_back(new TSPBasicOptionsResponse(
+      MIN_RESPONSE_PRIORITY, {regex("^.*$"), "OPTIONS", "HTTP/1.1"}));
+  t.push_back(new TSPBasicPostResponse(MIN_RESPONSE_PRIORITY,
+                                       {regex("^.*$"), "POST", "HTTP/1.1"}));
+  t.push_back(new TSPBasicPutResponse(MIN_RESPONSE_PRIORITY,
+                                      {regex("^.*$"), "PUT", "HTTP/1.1"}));
+  t.push_back(new TSPBasicDeleteResponse(
+      MIN_RESPONSE_PRIORITY, {regex("^.*$"), "DELETE", "HTTP/1.1"}));
 }

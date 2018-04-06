@@ -16,12 +16,10 @@ void tsp_module_sort_by_priority();
 
 class TSPBasicResponse;
 
-#define ResponseVectorType std::vector<TSPBasicResponse>
+#define ResponseVectorType std::vector<TSPBasicResponse *>
 
 class TSPModuleManager {
 public:
-  TSPModuleManager() = default;
-  ~TSPModuleManager() = default;
   static ResponseVectorType get() { return response; }
 
 private:

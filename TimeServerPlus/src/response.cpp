@@ -154,9 +154,9 @@ int TSPBasicResponse::match(const TSPRequest &req) {
 void tsp_response(const TSPRequest &req) {
   bool match = false;
 
-  for (auto i : TSPModuleManager::get()) {
-    if (i.match(req) == 0) {
-      i.handle(req);
+  for (TSPBasicResponse *i : TSPModuleManager::get()) {
+    if (i->match(req) == 0) {
+      i->handle(req);
       match = true;
       break;
     }

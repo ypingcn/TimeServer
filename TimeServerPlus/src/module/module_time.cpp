@@ -179,13 +179,13 @@ int TSPTimeFileAtimeResponse::handle(const TSPRequest &req) {}
 int TSPTimeFileMtimeResponse::handle(const TSPRequest &req) {}
 
 void install_time_modules(ResponseVectorType &t) {
-  t.push_back(TSPTimeFileCtimeResponse(
+  t.push_back(new TSPTimeFileCtimeResponse(
       DEFAULT_RESPONSE_PRIORITY, {regex("^.*?ctime=1$"), "GET", "HTTP/1.1"}));
-  t.push_back(TSPTimeFileAtimeResponse(
+  t.push_back(new TSPTimeFileAtimeResponse(
       DEFAULT_RESPONSE_PRIORITY, {regex("^.*?atime=1$"), "GET", "HTTP/1.1"}));
-  t.push_back(TSPTimeFileMtimeResponse(
+  t.push_back(new TSPTimeFileMtimeResponse(
       DEFAULT_RESPONSE_PRIORITY, {regex("^.*?mtime=1$"), "GET", "HTTP/1.1"}));
-  t.push_back(
-      TSPTimeLocaltimeResponse(DEFAULT_RESPONSE_PRIORITY,
-                               {regex("^.*?localtime=1$"), "GET", "HTTP/1.1"}));
+  t.push_back(new TSPTimeLocaltimeResponse(
+      DEFAULT_RESPONSE_PRIORITY,
+      {regex("^.*?localtime=1$"), "GET", "HTTP/1.1"}));
 }
