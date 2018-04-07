@@ -3,20 +3,11 @@
 
 #include "../response.h"
 #include "../type.h"
+#include "../utility.h"
+#include "load-module.h"
 
-#include <string>
 #include <unistd.h>
 #include <vector>
-
-using std::regex;
-using std::string;
-
-void tsp_module_time_init(std::vector<tsp_module_t> &v);
-
-void *tsp_module_time_localtime(void *sockfd, void *request);
-void *tsp_module_time_file_ctime(void *sockfd, void *request);
-void *tsp_module_time_file_atime(void *sockfd, void *request);
-void *tsp_module_time_file_mtime(void *sockfd, void *request);
 
 class TSPTimeLocaltimeResponse : public TSPBasicResponse {
 public:

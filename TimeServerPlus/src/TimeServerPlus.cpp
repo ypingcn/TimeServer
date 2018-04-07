@@ -1,11 +1,4 @@
 #include "TimeServerPlus.h"
-#include "logger.h"
-
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
-
-using namespace std;
 
 int main(int argc, char const *argv[]) {
   if (argc != 2) {
@@ -22,12 +15,11 @@ int main(int argc, char const *argv[]) {
     exit(-1);
   }
 
+  signal(SIGPIPE, SIG_IGN);
   string port;
   if (TSPConfig::instance()->get("PORT", port) == -1 || port == "")
     port = "8600";
   cout << "TSP Running .. port :" << port << endl;
-
-  tsp_module_init();
 
   int server_socket_fd = tsp_server_init(stoi(port));
   tsp_server_event_circles(server_socket_fd);
@@ -122,12 +114,11 @@ void *tsp_server_thread_function(void *param) {
   char *buff = (char *)TSPUtilMemory::basic_malloc(BUFF_SIZE);
   bzero(buff, BUFF_SIZE);
 
-  tsp_request_t *thread_request;
+  TSPRequest req(client_socket_fd);
 
 BEGIN:
   int32_t nread = 0, n = 0;
   int nfds = 0;
-  thread_request = tsp_request_new();
 
   for (;;) {
     n = read(client_socket_fd, buff + nread, BUFF_SIZE - 1);
@@ -153,15 +144,14 @@ BEGIN:
   if (nread != 0) {
     string raw_request(buff, buff + nread);
 
-    if (tsp_request_parse(raw_request, thread_request) == -1) {
+    if (req.parse_from_string(raw_request) == -1) {
       TSPLogger::instance()->error(
           "thread function error : request parse fail [%s]", strerror(errno));
       tsp_response_bad_request(client_socket_fd);
       tsp_response_headers_end(client_socket_fd);
-      tsp_request_delete(thread_request);
       goto BEGIN;
     } else {
-      tsp_request_handle(client_socket_fd, thread_request);
+      tsp_request_handle(req);
     }
 
     nfds = tsp_epoll_wait(thread_epollfd, ev, 2, 1000);
@@ -176,9 +166,8 @@ BEGIN:
   }
 
 OUT:
-  close(client_socket_fd);
+  close(thread_epollfd);
   TSPUtilMemory::basic_free(buff);
-  tsp_request_delete(thread_request);
   tsp_server_thread_num_del();
   printf("Thread %u exit\n", (unsigned int)thread_id);
 }

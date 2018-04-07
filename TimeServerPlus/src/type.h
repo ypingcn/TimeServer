@@ -1,34 +1,20 @@
 #ifndef TSP_TYPE_H
 #define TSP_TYPE_H
 
+#include <iostream>
 #include <map>
 #include <regex>
 #include <string>
 
-typedef std::map<std::string, std::string> tsp_httpheader_t;
-typedef std::map<std::string, std::string> tsp_url_arg_t;
-typedef struct __tsp_request_t {
-  std::string method;
-  std::string url;
-  std::string version;
-  tsp_url_arg_t arg;
-  tsp_httpheader_t headers;
-  std::string body;
-} tsp_request_t;
+using std::cout;
+using std::endl;
+using std::regex;
+using std::string;
 
-typedef struct __tsp_module_pattern_t {
-  std::regex url_pattern;
-  std::string method;
-  std::string version;
-} tsp_module_pattern_t;
-
-typedef void *(*tsp_module_callback)(void *, void *);
-
-typedef struct __tsp_module_t {
-  tsp_module_pattern_t pattern;
-  tsp_module_callback callback;
-  int priority;
-} tsp_module_t;
+#define MAX_BACKLOG 200
+#define MAX_EVENT_SIZE 1024
+#define KILO 1024
+#define BUFF_SIZE 1024 * KILO
 
 #define TSP_RN "\r\n"
 

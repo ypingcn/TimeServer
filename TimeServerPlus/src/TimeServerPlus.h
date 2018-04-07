@@ -3,20 +3,16 @@
 
 #include "config.h"
 #include "core.h"
+#include "logger.h"
 #include "request.h"
+#include "type.h"
 #include "utility.h"
 
 #include "module/load-module.h"
 
-#include <cstring>
 #include <netinet/in.h>
 #include <pthread.h>
-#include <string>
-
-#define MAX_BACKLOG 200
-#define MAX_EVENT_SIZE 1024
-#define KILO 1024
-#define BUFF_SIZE 1024 * KILO
+#include <signal.h>
 
 int32_t tsp_server_thread_num = 0;
 pthread_mutex_t tsp_server_thread_num_mutex = PTHREAD_MUTEX_INITIALIZER;
