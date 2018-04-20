@@ -15,7 +15,19 @@ int main(int argc, char const *argv[]) {
     exit(-1);
   }
 
+  if (TSPConfig::instance()->exist("DAEMON", "1") == 1) {
+    if (daemon(1, 0) < 0) {
+      std::cerr << "DAEMON ERROR" << '\n';
+    }
+  }
+
+  signal(SIGINT, SIG_IGN);
+  signal(SIGHUP, SIG_IGN);
+  signal(SIGQUIT, SIG_IGN);
   signal(SIGPIPE, SIG_IGN);
+  signal(SIGTTOU, SIG_IGN);
+  signal(SIGTTIN, SIG_IGN);
+
   string port;
   if (TSPConfig::instance()->get("PORT", port) == -1 || port == "")
     port = "8600";
