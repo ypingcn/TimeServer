@@ -1,14 +1,13 @@
 #ifndef TIME_SERVER_PLUS
 #define TIME_SERVER_PLUS
 
-#include "config.h"
-#include "core.h"
-#include "logger.h"
-#include "request.h"
-#include "type.h"
-#include "utility.h"
-
-#include "module/load-module.h"
+#include "contrib/config.h"
+#include "contrib/logger.h"
+#include "contrib/utility.h"
+#include "core/core.h"
+#include "core/request.h"
+#include "include/type.h"
+#include "modules/load-module.h"
 
 #include <netinet/in.h>
 #include <pthread.h>

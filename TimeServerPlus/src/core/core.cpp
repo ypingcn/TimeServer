@@ -1,7 +1,4 @@
 #include "core.h"
-#include "logger.h"
-
-#include <cstring>
 
 int tsp_socket(int domain, int type, int protocol) {
   int fd = socket(domain, type, protocol);

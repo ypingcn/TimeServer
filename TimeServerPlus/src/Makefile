@@ -1,29 +1,22 @@
-CXXFLAGS += --std=c++11
-
+CXXFLAGS += --std=c++11 -O2
 LIBS = -lpthread
+SRC = $(shell echo core/*.cpp contrib/*.cpp)
+MODULE_OBJ = $(MODULE_SRC:%.cpp=%.o)
 
-all:load-modules.o config.o core.o utility.o logger.o request.o type.o response.o
-	g++ --std=c++11 load-modules.o  config.o core.o request.o response.o type.o utility.o logger.o TimeServerPlus.cpp -o main.out $(LIBS)
+all: modules
+	g++ $(CXXFLAGS) $(SRC) modules/libtspmodules.so TimeServerPlus.cpp -o main.out $(LIBS)
 
+modules:
+	cd modules && make
 
-debug:load-modules.o config.o core.o utility.o request.o response.o type.o
-	g++ -g --std=c++11 load-modules.o  config.o core.o request.o response.o type.o utility.o TimeServerPlus.cpp -o main $(LIBS)
-
-config.o: config.h
-type.o: type.h
-utility.o: utility.h
-logger.o: logger.h
-
-core.o: core.h
-request.o: request.h
-response.o: response.h
-
-
-
-load-modules.o:
-	cd module && make && cp load-modules.o ../load-modules.o
-
+.PHONY: clean
 clean:
-	rm *.o module/*.o main.out
-mclean:
-	rm module/*.o load-modules.o
+	rm main.out
+
+.PHONY: cleano
+cleano:
+	rm core/*.o contrib/*.o modules/*.o
+
+.PHONY: cleanso
+cleanso:
+	rm core/*.so contrib/*.so modules/*.so *.so

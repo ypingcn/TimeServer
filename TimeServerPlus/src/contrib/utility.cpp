@@ -102,6 +102,7 @@ int TSPUtilIO::basic_write(int fd, char *buf, uint32_t cnt) {
       return TSP_ERROR;
     }
   }
+  return TSP_OK;
 }
 
 int TSPUtilIO::basic_read(int fd, char *buf, uint32_t cnt) {
@@ -119,4 +120,5 @@ int TSPUtilIO::basic_read(int fd, char *buf, uint32_t cnt) {
       return TSP_ERROR;
     }
   }
+  return TSP_OK;
 }

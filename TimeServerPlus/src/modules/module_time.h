@@ -1,13 +1,10 @@
 #ifndef TSP_MODULE_TIME_H
 #define TSP_MODULE_TIME_H
 
-#include "../response.h"
-#include "../type.h"
-#include "../utility.h"
+#include "../contrib/utility.h"
+#include "../core/response.h"
+#include "../include/type.h"
 #include "load-module.h"
-
-#include <unistd.h>
-#include <vector>
 
 class TSPTimeLocaltimeResponse : public TSPBasicResponse {
 public:

@@ -28,7 +28,7 @@ void TSPLogger::log(const char *level, const char *fmt, va_list args) {
   if (TSPConfig::instance()->get("LOG", log_file_name) != -1) {
     int fd = open(log_file_name.data(), O_CREAT | O_RDWR | O_APPEND,
                   S_IRUSR | S_IWUSR);
-    write(fd, buff, siz);
+    TSPUtilIO::basic_write(fd, buff, siz);
     close(fd);
   }
 }

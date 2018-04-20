@@ -10,6 +10,7 @@ using std::cout;
 using std::endl;
 using std::regex;
 using std::string;
+using std::map;
 
 #define MAX_BACKLOG 200
 #define MAX_EVENT_SIZE 1024

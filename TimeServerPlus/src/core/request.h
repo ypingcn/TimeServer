@@ -1,15 +1,15 @@
 #ifndef TSP_REQUEST_H
 #define TSP_REQUEST_H
 
-#include "logger.h"
+#include "../contrib/logger.h"
+#include "../include/type.h"
 #include "response.h"
-#include "type.h"
 
 #include <sstream>
 #include <unistd.h>
 
-typedef std::map<string, string> TSPRequestArgsType;
-typedef std::map<string, string> TSPRequestHeadersType;
+typedef map<string, string> TSPRequestArgsType;
+typedef map<string, string> TSPRequestHeadersType;
 #define new_header(key, value) std::make_pair((key), (value))
 #define new_arg(key, value) std::make_pair((key), (value))
 

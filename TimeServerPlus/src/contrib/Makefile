@@ -5,5 +5,4 @@ MODULE_OBJ = $(MODULE_SRC:%.cpp=%.o)
 
 all:
 	g++ $(CXXFLAGS) -c $(MODULE_SRC) $(LIBS)
-	ld -r -s -o load-modules.o $(MODULE_OBJ)
-
+	ld -r -s -o libtspcontrib.so $(MODULE_OBJ)

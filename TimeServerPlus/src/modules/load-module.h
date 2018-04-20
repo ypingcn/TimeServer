@@ -1,8 +1,8 @@
 #ifndef TSP_LOAD_MODULE_H
 #define TSP_LOAD_MODULE_H
 
-#include "../response.h"
-#include "../type.h"
+#include "../core/response.h"
+#include "../include/type.h"
 
 #include <vector>
 

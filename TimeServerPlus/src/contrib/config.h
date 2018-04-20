@@ -1,13 +1,7 @@
 #ifndef TSP_CONFIG
 #define TSP_CONFIG
 
-#include <fstream>
-#include <iostream>
-#include <map>
-#include <sstream>
-#include <string>
-
-using std::string;
+#include "../include/type.h"
 
 class TSPConfig {
 public:
@@ -36,6 +30,7 @@ private:
 
   static pthread_mutex_t lock;
   static TSPConfig *config;
-  std::map<string, string> data;
+  map<string, string> data;
 };
+
 #endif

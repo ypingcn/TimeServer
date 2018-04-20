@@ -1,11 +1,11 @@
 #ifndef TSP_RESPONSE_H
 #define TSP_RESPONSE_H
 
-#include "config.h"
-#include "module/load-module.h"
+#include "../contrib/config.h"
+#include "../contrib/utility.h"
+#include "../include/type.h"
+#include "../modules/load-module.h"
 #include "request.h"
-#include "type.h"
-#include "utility.h"
 
 #include <sys/time.h>
 #include <time.h>

@@ -1,10 +1,10 @@
 #ifndef TSP_MODULE_BASIC_H
 #define TSP_MODULE_BASIC_H
 
-#include "../config.h"
-#include "../logger.h"
-#include "../response.h"
-#include "../type.h"
+#include "../contrib/config.h"
+#include "../contrib/logger.h"
+#include "../core/response.h"
+#include "../include/type.h"
 #include "load-module.h"
 
 #include <sys/sendfile.h>

@@ -1,13 +1,12 @@
 #ifndef TSP_UTILITY
 #define TSP_UTILITY
 
+#include "../include/type.h"
+
 #include <cstdarg>
 #include <fcntl.h>
-#include <string>
 #include <sys/stat.h>
 #include <unistd.h>
-
-using std::string;
 
 enum ResultCode { TSP_OK = 0, TSP_ERROR = -1, TSP_AGAIN = -2 };
 
