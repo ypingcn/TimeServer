@@ -97,7 +97,8 @@ void tsp_server_event_circles(int server_fd) {
 
         if (TSPConfig::instance()->exist("IPRECORD", "1") == 1) {
           struct sockaddr_in in_addr;
-          socklen_t len;
+          socklen_t len = sizeof(in_addr);
+          bzero(&in_addr, len);
           if (getpeername(ev[i].data.fd, (sockaddr *)&in_addr, &len) != -1) {
             TSPLogger::instance()->info("visitor's IP is %s [IPRECORD]",
                                         inet_ntoa(in_addr.sin_addr));
