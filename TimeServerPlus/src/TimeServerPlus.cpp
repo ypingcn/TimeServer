@@ -95,6 +95,15 @@ void tsp_server_event_circles(int server_fd) {
         e.data.fd = ev[i].data.fd;
         tsp_epoll_ctl(epollfd, EPOLL_CTL_DEL, ev[i].data.fd, &e);
 
+        if (TSPConfig::instance()->exist("IPRECORD", "1") == 1) {
+          struct sockaddr_in in_addr;
+          socklen_t len;
+          if (getpeername(ev[i].data.fd, (sockaddr *)&in_addr, &len) != -1) {
+            TSPLogger::instance()->info("visitor's IP is %s [IPRECORD]",
+                                        inet_ntoa(in_addr.sin_addr));
+          }
+        }
+
         pthread_t tid;
         pthread_create(&tid, &pthread_attr_detach, &tsp_server_thread_function,
                        (void *)(intptr_t)ev[i].data.fd);

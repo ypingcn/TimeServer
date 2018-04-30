@@ -9,6 +9,7 @@
 #include "include/type.h"
 #include "modules/load-module.h"
 
+#include <arpa/inet.h>
 #include <netinet/in.h>
 #include <pthread.h>
 #include <signal.h>
