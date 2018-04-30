@@ -9,7 +9,6 @@ pthread_mutex_t TSPConfig::lock = PTHREAD_MUTEX_INITIALIZER;
 
 int TSPConfig::parse(const string path) {
   std::fstream config_file(path, std::fstream::in);
-  cout << "hello" << endl;
   if (!config_file) {
     cout << "config error" << endl;
 
