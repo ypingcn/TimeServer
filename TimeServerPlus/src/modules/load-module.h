@@ -1,6 +1,11 @@
 #ifndef TSP_LOAD_MODULE_H
 #define TSP_LOAD_MODULE_H
 
+#define TSP_MODULE_MAJOR 0
+#define TSP_MODULE_MINOR 1
+#define TSP_MODULE_PATCH 0
+#define TSP_MODULE_SONAME 0.1
+
 #include "../core/response.h"
 #include "../include/type.h"
 
