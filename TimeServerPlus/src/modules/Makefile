@@ -1,8 +1,10 @@
-CXXFLAGS += --std=c++11
+CC = g++
+CXXFLAGS += --std=c++11 --shared -fPIC -O3
 LIBS = -lpthread
 MODULE_SRC = $(shell echo *.cpp)
 MODULE_OBJ = $(MODULE_SRC:%.cpp=%.o)
+MODULE_SO_NAME = libtspmodules.so.$(shell grep TSP_MODULE_SONAME load-module.h | awk '{print $$3}')
+OTHER_MODULE_SO = 
 
 all:
-	g++ $(CXXFLAGS) -c $(MODULE_SRC) $(LIBS)
-	ld -r -s -o libtspmodules.so $(MODULE_OBJ)
+	$(CC) $(CXXFLAGS) $(MODULE_SRC) $(OTHER_MODULE_SO) -o $(MODULE_SO_NAME) $(LIBS)
